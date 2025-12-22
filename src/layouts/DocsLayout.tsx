@@ -9,6 +9,8 @@ const sidebarItems = [
   { title: "Pie Chart", path: "/docs/pie-chart" },
   { title: "Area Chart", path: "/docs/area-chart" },
   { title: "Radar Chart", path: "/docs/radar-chart" },
+  { title: "Scatter Plot", path: "/docs/scatter-chart" },
+  { title: "Heatmap", path: "/docs/heatmap" },
 ];
 
 export function DocsLayout() {

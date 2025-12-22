@@ -5,8 +5,9 @@ import { BarChartPage } from './pages/charts/BarChartPage';
 import { LineChartPage } from './pages/charts/LineChartPage';
 import { PieChartPage } from './pages/charts/PieChartPage';
 import { AreaChartPage } from './pages/charts/AreaChartPage';
-
 import { RadarChartPage } from './pages/charts/RadarChartPage';
+import { ScatterChartPage } from './pages/charts/ScatterChartPage';
+import { HeatmapChartPage } from './pages/charts/HeatmapChartPage';
 import { ThemeProvider } from './components/theme-provider';
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
             <Route path="docs/pie-chart" element={<PieChartPage />} />
             <Route path="docs/area-chart" element={<AreaChartPage />} />
             <Route path="docs/radar-chart" element={<RadarChartPage />} />
+            <Route path="docs/scatter-chart" element={<ScatterChartPage />} />
+            <Route path="docs/heatmap" element={<HeatmapChartPage />} />
             {/* Catch all */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>

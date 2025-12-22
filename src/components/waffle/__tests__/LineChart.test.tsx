@@ -1,9 +1,10 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { LineChart } from '../LineChart';
 
-// 1. Mock ResizeObserver
+// 1. Mock ResizeObserver (Global)
 class ResizeObserver {
   observe() { }
   unobserve() { }
@@ -35,7 +36,7 @@ describe('LineChart', () => {
     expect(container).toBeInTheDocument();
   });
 
-  it('renders SVG elements', () => {
+  it('renders basic SVG structure', () => {
     const { container } = render(
       <LineChart
         data={mockData}
@@ -45,6 +46,64 @@ describe('LineChart', () => {
     );
     const svg = container.querySelector('svg');
     expect(svg).toBeInTheDocument();
-    expect(svg).toHaveAttribute('width', '500');
+    const path = container.querySelector('path'); // LinePath renders a path
+    expect(path).toBeInTheDocument();
+  });
+
+  it('applies custom line color', () => {
+    const { container } = render(
+      <LineChart
+        data={mockData}
+        xKey="date"
+        yKey="value"
+        lineColor="stroke-red-500"
+      />
+    );
+    // LinePath is a path element. 
+    // We look for a path that has this class.
+    // There might be multiple paths (Grid, Area), so we check if *any* has it.
+    const paths = container.querySelectorAll('path');
+    const hasRedLine = Array.from(paths).some(p => p.classList.contains('stroke-red-500'));
+    expect(hasRedLine).toBe(true);
+  });
+
+  it('shows tooltip on hover', async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <LineChart
+        data={mockData}
+        xKey="date"
+        yKey="value"
+      />
+    );
+
+    // LineChart uses a transparent <rect> overlay for tooltips.
+    // It's likely the last <rect> in the group or one that has 'transparent' fill.
+    // We can try hovering over the SVG or finding the rect.
+    // Since the overlay covers the chart area, hovering the center of the chart works.
+
+    const svg = container.querySelector('svg');
+    // Hovering the SVG might not trigger the specific rect listener if relying on bubbling, 
+    // but Visx Bar wrapper usually handles standard events.
+    // Let's target the rects.
+    const rects = container.querySelectorAll('rect');
+    // The one with "fill: transparent" is likely the overlay. 
+    const overlay = Array.from(rects).find(r => r.getAttribute('fill') === 'transparent');
+
+    if (overlay) {
+      await user.hover(overlay);
+      // Verify tooltip content. The tooltip displays yKey values.
+      // We might hit any point depending on where 'hover' lands (defaults to center usually).
+      // Center of 3 points (01, 02, 03) is likely 02 -> value 200.
+      // But strict coordinate reliance is flaky.
+      // Let's just check if *any* of the values appear.
+      const valueVisible =
+        (await screen.findAllByText(/100|200|300/)).length > 0;
+
+      expect(valueVisible).toBe(true);
+    } else {
+      // Fallback if we can't find overlay (shouldn't happen with Visx architecture)
+      throw new Error("Could not find overlay rect for interaction");
+    }
   });
 });

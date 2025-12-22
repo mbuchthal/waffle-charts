@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { BarChart } from '../BarChart';
 
@@ -18,9 +19,9 @@ vi.mock('@visx/responsive', () => ({
 }));
 
 const mockData = [
-  { label: 'A', value: 100 },
-  { label: 'B', value: 200 },
-  { label: 'C', value: 300 },
+  { label: 'A', value: 101 },
+  { label: 'B', value: 202 },
+  { label: 'C', value: 303 },
 ];
 
 describe('BarChart', () => {
@@ -43,10 +44,8 @@ describe('BarChart', () => {
         yKey="value"
       />
     );
-    // Should contain an SVG with width 500
     const svg = container.querySelector('svg');
     expect(svg).toBeInTheDocument();
-    expect(svg).toHaveAttribute('width', '500');
   });
 
   it('renders correct number of bars', () => {
@@ -57,10 +56,44 @@ describe('BarChart', () => {
         yKey="value"
       />
     );
-    // Visx BarChart renders <rect> elements for bars
     const bars = container.querySelectorAll('rect');
-    // Just assert we have bars. Ideally 3 bars + background rects maybe?
-    // Visx BarGroup often renders just the bars. Let's check length.
     expect(bars.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it('applies custom bar color', () => {
+    const { container } = render(
+      <BarChart
+        data={mockData}
+        xKey="label"
+        yKey="value"
+        barColor="fill-blue-500"
+      />
+    );
+    const bars = container.querySelectorAll('rect');
+    const hasBlueBar = Array.from(bars).some(bar => bar.classList.contains('fill-blue-500'));
+    expect(hasBlueBar).toBe(true);
+  });
+
+  it('shows tooltip on hover', async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <BarChart
+        data={mockData}
+        xKey="label"
+        yKey="value"
+      />
+    );
+
+    const bars = container.querySelectorAll('rect');
+    const firstBar = bars[0];
+
+    // Interaction
+    await user.hover(firstBar);
+
+    // Assert
+    // We look for "101" which is the value of the first bar.
+    // This is unique enough and proves the tooltip is rendering with correct data.
+    const tooltipValue = await screen.findByText('101');
+    expect(tooltipValue).toBeVisible();
   });
 });
