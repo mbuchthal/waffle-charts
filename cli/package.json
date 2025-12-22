@@ -1,0 +1,28 @@
+{
+  "name": "waffle-charts-cli",
+  "version": "0.1.0",
+  "description": "CLI to add WaffleCharts components to your project",
+  "main": "bin/index.js",
+  "bin": {
+    "waffle-charts": "./bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "charts",
+    "cli",
+    "visx"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "fs-extra": "^11.2.0",
+    "ora": "^8.0.1",
+    "prompts": "^2.4.2"
+  },
+  "type": "module"
+}
