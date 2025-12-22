@@ -45,7 +45,7 @@ export function HeatmapChartPage() {
         <div className="h-[350px] w-full">
           <HeatmapChart
             data={mockData}
-            colorRange={['hsl(var(--muted))', 'hsl(var(--primary))']}
+            colorRange={['#f1f5f9', '#0f172a']} // slate-100 to slate-900
           />
         </div>
       </ComponentPreview>
