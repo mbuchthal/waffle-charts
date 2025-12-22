@@ -93,24 +93,61 @@ export function IntroductionPage() {
       <div className="space-y-4">
         <h2 className="text-2xl font-semibold tracking-tight">Getting Started</h2>
         <p className="text-muted-foreground text-lg">
-          Since WaffleCharts is a copy-paste library, installation just means adding the core dependencies that the components utilize.
+          You can add components to your project using our CLI (Recommended) or by manually copying the code.
         </p>
 
-        <div className="mt-6">
-          <h3 className="text-base font-medium mb-3">1. Install Dependencies</h3>
-          <pre className="p-4 rounded-lg bg-muted text-sm font-mono overflow-x-auto border">
-            <code>
-              npm install @visx/shape @visx/group @visx/scale @visx/responsive @visx/tooltip @visx/axis @visx/grid @visx/curve @visx/event @visx/glyph d3-array clsx tailwind-merge lucide-react
-            </code>
-          </pre>
-        </div>
+        <div className="mt-8 space-y-8">
+          {/* Method 1: CLI */}
+          <div className="space-y-4">
+            <h3 className="text-xl font-medium flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs text-primary-foreground font-bold">1</span>
+              CLI (Recommended)
+            </h3>
+            <p className="text-muted-foreground">
+              Run the `add` command to interactively select charts. This will automatically install dependencies and copy the source code to your project.
+            </p>
+            <pre className="p-4 rounded-lg bg-muted text-sm font-mono overflow-x-auto border relative">
+              <code>
+                npx waffle-charts-cli add
+              </code>
+            </pre>
+            <p className="text-sm text-muted-foreground">
+              Or add a specific chart directly:
+            </p>
+            <pre className="p-4 rounded-lg bg-muted text-sm font-mono overflow-x-auto border relative">
+              <code>
+                npx waffle-charts-cli add bar-chart
+              </code>
+            </pre>
+          </div>
 
-        <div className="mt-6">
-          <h3 className="text-base font-medium mb-3">2. Choose a Component</h3>
-          <p className="text-muted-foreground">
-            Navigate to any chart in the sidebar (e.g., <a href="/docs/bar-chart" className="text-primary hover:underline">Bar Chart</a>),
-            copy the code into your project, and start customizing.
-          </p>
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">Or</span>
+            </div>
+          </div>
+
+          {/* Method 2: Manual */}
+          <div className="space-y-4">
+            <h3 className="text-xl font-medium flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary text-xs text-secondary-foreground font-bold">2</span>
+              Manual Installation
+            </h3>
+            <p className="text-muted-foreground">
+              Manually install the core dependencies and then copy the component code from the documentation.
+            </p>
+            <pre className="p-4 rounded-lg bg-muted text-sm font-mono overflow-x-auto border">
+              <code>
+                npm install @visx/shape @visx/group @visx/scale @visx/responsive @visx/tooltip @visx/axis @visx/grid @visx/curve @visx/event @visx/glyph d3-array clsx tailwind-merge lucide-react
+              </code>
+            </pre>
+            <p className="text-sm text-muted-foreground">
+              Then navigate to any chart page, copy the code, and paste it into your project.
+            </p>
+          </div>
         </div>
       </div>
     </div>
