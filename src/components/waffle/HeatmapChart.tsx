@@ -43,7 +43,6 @@ function HeatmapChartContent({
 
   // Helpers
   const binWidth = xMax / data.length;
-  const binHeight = yMax / data[0].bins.length;
 
   // Scales
   const xScale = useMemo(
@@ -82,7 +81,7 @@ function HeatmapChartContent({
     tooltipData,
     hideTooltip,
     showTooltip,
-  } = useTooltip<{ bin: number; count: number }>();
+  } = useTooltip<number>(); // Tooltip data is just the bin count (number)
 
   const { containerRef, TooltipInPortal } = useTooltipInPortal({
     scroll: true,
@@ -94,13 +93,13 @@ function HeatmapChartContent({
     <div className={cn("relative", className)}>
       <svg ref={containerRef} width={width} height={height} className="overflow-visible">
         <Group left={margin.left} top={margin.top}>
-          <HeatmapRect
+          <HeatmapRect<HeatmapData, { bin: number; count: number }>
             data={data}
             xScale={xScale}
             yScale={yScale}
             colorScale={colorScale}
             binWidth={binWidth}
-            binHeight={binWidth} // Square bins usually look best, or use binHeight
+            binHeight={binWidth}
             gap={gap}
           >
             {(heatmap) =>
@@ -117,7 +116,7 @@ function HeatmapChartContent({
                     rx={2}
                     onMouseEnter={() => {
                       showTooltip({
-                        tooltipData: bin.bin,
+                        tooltipData: bin.count ?? 0, // Ensure strictly number
                         tooltipLeft: bin.x + margin.left + bin.width / 2,
                         tooltipTop: bin.y + margin.top,
                       });
@@ -130,14 +129,14 @@ function HeatmapChartContent({
           </HeatmapRect>
         </Group>
       </svg>
-      {tooltipOpen && tooltipData && (
+      {tooltipOpen && tooltipData !== undefined && (
         <TooltipInPortal
           top={tooltipTop}
           left={tooltipLeft}
           style={{ ...defaultStyles, padding: 0, borderRadius: 0, boxShadow: 'none', background: 'transparent' }}
         >
           <div className="rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95">
-            <p className="font-semibold">Value: {tooltipData.count}</p>
+            <p className="font-semibold">Value: {tooltipData}</p>
           </div>
         </TooltipInPortal>
       )}

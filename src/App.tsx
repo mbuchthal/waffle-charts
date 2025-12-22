@@ -8,6 +8,8 @@ import { AreaChartPage } from './pages/charts/AreaChartPage';
 import { RadarChartPage } from './pages/charts/RadarChartPage';
 import { ScatterChartPage } from './pages/charts/ScatterChartPage';
 import { HeatmapChartPage } from './pages/charts/HeatmapChartPage';
+import { TreemapChartPage } from './pages/charts/TreemapChartPage';
+import { BubbleChartPage } from './pages/charts/BubbleChartPage';
 import { ThemeProvider } from './components/theme-provider';
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
             <Route path="docs/radar-chart" element={<RadarChartPage />} />
             <Route path="docs/scatter-chart" element={<ScatterChartPage />} />
             <Route path="docs/heatmap" element={<HeatmapChartPage />} />
+            <Route path="docs/treemap" element={<TreemapChartPage />} />
+            <Route path="docs/bubble-chart" element={<BubbleChartPage />} />
             {/* Catch all */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>

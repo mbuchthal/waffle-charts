@@ -1,19 +1,23 @@
 import { HeatmapChart } from "../../components/waffle/HeatmapChart";
 import { ComponentPreview } from "../../components/ComponentPreview";
-import { genBin } from '@visx/mock-data';
 
-// Generate mock data: 20 bins, containing 10 bins each
-const mockData = genBin(20, 10, (i) => i).map(d => ({
-  bin: d.bin,
-  bins: d.bins.map(b => ({ bin: b.bin, count: b.count * 100 }))
+// Custom data generator to avoid type issues with visx/mock-data
+const mockData = Array.from({ length: 20 }, (_, i) => ({
+  bin: i,
+  bins: Array.from({ length: 10 }, (_, j) => ({
+    bin: j,
+    count: Math.floor(Math.random() * 100)
+  }))
 }));
 
 const codeString = `import { HeatmapChart } from "waffle-charts";
-import { genBin } from '@visx/mock-data';
 
-const data = genBin(20, 10, (i) => i).map(d => ({
-    bin: d.bin,
-    bins: d.bins.map(b => ({ bin: b.bin, count: b.count * 100 }))
+const data = Array.from({ length: 20 }, (_, i) => ({
+  bin: i,
+  bins: Array.from({ length: 10 }, (_, j) => ({
+    bin: j,
+    count: Math.floor(Math.random() * 100)
+  }))
 }));
 
 export function HeatmapDemo() {

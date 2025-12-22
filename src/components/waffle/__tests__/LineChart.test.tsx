@@ -82,7 +82,6 @@ describe('LineChart', () => {
     // We can try hovering over the SVG or finding the rect.
     // Since the overlay covers the chart area, hovering the center of the chart works.
 
-    const svg = container.querySelector('svg');
     // Hovering the SVG might not trigger the specific rect listener if relying on bubbling, 
     // but Visx Bar wrapper usually handles standard events.
     // Let's target the rects.
