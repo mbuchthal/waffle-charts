@@ -15,8 +15,20 @@
     "cli",
     "visx"
   ],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbuchthal/waffle-charts.git"
+  },
+  "author": "WaffleCharts Team",
   "license": "MIT",
+  "files": [
+    "bin",
+    "src",
+    "templates"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
