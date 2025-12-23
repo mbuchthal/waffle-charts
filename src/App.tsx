@@ -10,6 +10,7 @@ import { ScatterChartPage } from './pages/charts/ScatterChartPage';
 import { HeatmapChartPage } from './pages/charts/HeatmapChartPage';
 import { TreemapChartPage } from './pages/charts/TreemapChartPage';
 import { BubbleChartPage } from './pages/charts/BubbleChartPage';
+import { GalleryPage } from './pages/Gallery';
 import { ThemeProvider } from './components/theme-provider';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<DocsLayout />}>
             <Route index element={<IntroductionPage />} />
+            <Route path="gallery" element={<GalleryPage />} />
             <Route path="docs/bar-chart" element={<BarChartPage />} />
             <Route path="docs/line-chart" element={<LineChartPage />} />
             <Route path="docs/pie-chart" element={<PieChartPage />} />

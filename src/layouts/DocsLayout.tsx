@@ -4,6 +4,7 @@ import { ModeToggle } from '../components/mode-toggle';
 
 const sidebarItems = [
   { title: "Introduction", path: "/" },
+  { title: "Gallery", path: "/gallery" },
   { title: "Bar Chart", path: "/docs/bar-chart" },
   { title: "Line Chart", path: "/docs/line-chart" },
   { title: "Pie Chart", path: "/docs/pie-chart" },
