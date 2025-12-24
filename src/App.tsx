@@ -11,6 +11,7 @@ import { HeatmapChartPage } from './pages/charts/HeatmapChartPage';
 import { TreemapChartPage } from './pages/charts/TreemapChartPage';
 import { BubbleChartPage } from './pages/charts/BubbleChartPage';
 import { SankeyChartPage } from './pages/charts/SankeyChartPage';
+import { CompositeChartPage } from './pages/charts/CompositeChartPage';
 import { GalleryPage } from './pages/Gallery';
 import { ThemeProvider } from './components/theme-provider';
 
@@ -31,6 +32,7 @@ function App() {
             <Route path="docs/heatmap" element={<HeatmapChartPage />} />
             <Route path="docs/treemap" element={<TreemapChartPage />} />
             <Route path="docs/sankey-chart" element={<SankeyChartPage />} />
+            <Route path="docs/composite-chart" element={<CompositeChartPage />} />
             <Route path="docs/bubble-chart" element={<BubbleChartPage />} />
             {/* Catch all */}
             <Route path="*" element={<Navigate to="/" replace />} />

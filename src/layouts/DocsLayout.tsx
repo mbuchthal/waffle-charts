@@ -14,6 +14,7 @@ const sidebarItems = [
   { title: "Heatmap", path: "/docs/heatmap" },
   { title: "Treemap", path: "/docs/treemap" },
   { title: "Sankey Diagram", path: "/docs/sankey-chart" },
+  { title: "Composite Chart", path: "/docs/composite-chart" },
   { title: "Bubble Chart", path: "/docs/bubble-chart" },
 ];
 

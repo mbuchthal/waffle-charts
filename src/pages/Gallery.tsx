@@ -9,6 +9,7 @@ import { HeatmapChart } from '../components/waffle/HeatmapChart';
 import { TreemapChart } from '../components/waffle/TreemapChart';
 import { BubbleChart } from '../components/waffle/BubbleChart';
 import { SankeyChart } from '../components/waffle/SankeyChart';
+import { CompositeChart } from '../components/waffle/CompositeChart';
 
 const barData = [
   { letter: 'A', frequency: 0.08167 },
@@ -94,6 +95,15 @@ const charts = [
         ]
       }
     } />
+  },
+  {
+    name: "Composite", path: "/docs/composite-chart", component: <CompositeChart
+      data={[
+        { m: 'A', v: 400, l: 15 }, { m: 'B', v: 300, l: 30 }, { m: 'C', v: 500, l: 25 },
+        { m: 'D', v: 200, l: 10 }, { m: 'E', v: 450, l: 40 }
+      ]}
+      xKey="m" barKey="v" lineKey="l"
+    />
   },
 ];
 
