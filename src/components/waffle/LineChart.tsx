@@ -31,6 +31,7 @@ export type LineChartProps<T> = {
   xAxisLabel?: string;
   yAxisLabel?: string;
   margin?: { top: number; right: number; bottom: number; left: number };
+  yDomain?: [number, number];
 };
 
 type LineChartContentProps<T> = LineChartProps<T> & {
@@ -53,7 +54,8 @@ function LineChartContent<T>({
   showGridColumns = false,
   xAxisLabel,
   yAxisLabel,
-  margin: customMargin
+  margin: customMargin,
+  yDomain
 }: LineChartContentProps<T>) {
   // Config
   const defaultMargin = { top: 40, right: 30, bottom: 50, left: 50 };
@@ -83,9 +85,9 @@ function LineChartContent<T>({
       scaleLinear<number>({
         range: [yMax, 0],
         round: true,
-        domain: [0, Math.max(...data.map(getY)) * 1.1], // Add some padding
+        domain: yDomain || [0, Math.max(...data.map(getY)) * 1.1], // Use prop or calculate
       }),
-    [yMax, data, yKey],
+    [yMax, data, yKey, yDomain],
   );
 
   // Tooltip

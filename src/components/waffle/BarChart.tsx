@@ -28,6 +28,8 @@ export type BarChartProps<T> = {
   xAxisLabel?: string;
   yAxisLabel?: string;
   margin?: { top: number; right: number; bottom: number; left: number };
+  yDomain?: [number, number];
+  tickFormat?: (value: string, index: number) => string;
 };
 
 // Internal component with required dimensions
@@ -50,7 +52,9 @@ function BarChartContent<T>({
   showGridColumns = false,
   xAxisLabel,
   yAxisLabel,
-  margin: customMargin
+  margin: customMargin,
+  yDomain,
+  tickFormat,
 }: BarChartContentProps<T>) {
   // Config
   const defaultMargin = { top: 40, right: 30, bottom: 50, left: 50 };
@@ -79,9 +83,9 @@ function BarChartContent<T>({
       scaleLinear<number>({
         range: [yMax, 0],
         round: true,
-        domain: [0, Math.max(...data.map(getY))],
+        domain: yDomain || [0, Math.max(...data.map(getY))],
       }),
-    [yMax, data, yKey],
+    [yMax, data, yKey, yDomain],
   );
 
   // Tooltip
@@ -118,6 +122,7 @@ function BarChartContent<T>({
               stroke="hsl(var(--border, 214.3 31.8% 91.4%))"
               tickStroke="hsl(var(--border, 214.3 31.8% 91.4%))"
               label={xAxisLabel}
+              tickFormat={tickFormat}
               labelProps={{
                 fill: "hsl(var(--muted-foreground, 215.4 16.3% 46.9%))",
                 fontSize: 12,
@@ -193,7 +198,7 @@ function BarChartContent<T>({
         >
           <div className="rounded-md border bg-white dark:bg-slate-900 px-3 py-1.5 text-sm text-slate-900 dark:text-slate-100 shadow-xl">
             <p className="font-semibold">{String(getY(tooltipData))}</p>
-            <p className="text-xs text-muted-foreground">{getX(tooltipData)}</p>
+            <p className="text-xs text-muted-foreground">{String(getX(tooltipData))}</p>
           </div>
         </TooltipInPortal>
       )}
